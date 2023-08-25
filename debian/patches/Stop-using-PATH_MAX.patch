@@ -1,0 +1,117 @@
+Author: Andrea Pappacoda <andrea@pappacoda.it>
+Forwarded: https://github.com/HowardHinnant/date/pull/744
+Last-Update: 2022-08-06
+
+From 509ccf41342c52e45bab1e9079f13e554c566ff5 Mon Sep 17 00:00:00 2001
+From: Andrea Pappacoda <andrea@pappacoda.it>
+Date: Mon, 10 Oct 2022 23:36:03 +0200
+Subject: [PATCH] Stop using PATH_MAX
+
+PATH_MAX isn't guaranteed to be defined in Posix environments; it is
+only on systems that have a path length limit, and even in environments
+where it is defined its usage can lead to issues.
+
+To avoid using PATH_MAX, I've made two main changes:
+
+- Where realpath() was used, I've changed the code to use its
+  [POSIX.1-2008]'s new behaviour, where passing a null pointer as the
+  resolved_name buffer results in realpath() to automatically allocate
+  a buffer large enough to handle the given path, that is returned to
+  the caller. This has been supported for a long time as a GNU libc
+  extension before being standardized.
+- Where readlink() was used, the size of the buffer was already
+  determined when calling lstat(); the returned struct stat contains a
+  st_size field, containing the number of bytes needed to store the
+  symbolic link contents. This meant that to avoid using the tricky
+  define I only needed to use a dynamically allocated buffer instead of
+  a static one, of size stat.st_size (+1 when a null terminator is
+  needed).
+
+To make sure that memory is always freed, I've wrapped the new dynamic
+allocations in an std::unique_ptr. The pointer returned by realpath()
+must be freed with free(), so a unique_ptr with a custom deleter that
+calls free() on destruction was used.
+
+To read more about why PATH_MAX leads to buggy code I'd suggest reading
+something like this: <https://eklitzke.org/path-max-is-tricky>.
+
+[POSIX.1-2008]: https://pubs.opengroup.org/onlinepubs/9699919799/functions/realpath.html
+---
+ src/tz.cpp | 34 +++++++++++++++++++++-------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
+
+diff --git a/src/tz.cpp b/src/tz.cpp
+index bd9fad4c..bf752ce2 100644
+--- a/src/tz.cpp
++++ b/src/tz.cpp
+@@ -484,9 +484,10 @@ discover_tz_dir()
+     if (!(lstat(timezone, &sb) == 0 && S_ISLNK(sb.st_mode) && sb.st_size > 0))
+         throw runtime_error("discover_tz_dir failed\n");
+     string result;
+-    char rp[PATH_MAX+1] = {};
+-    if (readlink(timezone, rp, sizeof(rp)-1) > 0)
+-        result = string(rp);
++    unique_ptr<char[]> rp(new char[sb.st_size]);
++    const auto rp_length = readlink(timezone, rp.get(), sb.st_size);
++    if (rp_length > 0)
++        result = string(rp.get(), rp_length); // readlink doesn't null-terminate
+     else
+         throw system_error(errno, system_category(), "readlink() failed");
+     auto i = result.find("zoneinfo");
+@@ -3921,10 +3922,10 @@ bool
+ sniff_realpath(const char* timezone)
+ {
+     using namespace std;
+-    char rp[PATH_MAX+1] = {};
+-    if (realpath(timezone, rp) == nullptr)
++    unique_ptr<char, decltype(free) *> rp(realpath(timezone, nullptr), free);
++    if (rp.get() == nullptr)
+         throw system_error(errno, system_category(), "realpath() failed");
+-    auto result = extract_tz_name(rp);
++    auto result = extract_tz_name(rp.get());
+     return result != "posixrules";
+ }
+ 
+@@ -3951,18 +3952,24 @@ tzdb::current_zone() const
+         {
+             using namespace std;
+             static const bool use_realpath = sniff_realpath(timezone);
+-            char rp[PATH_MAX+1] = {};
+             if (use_realpath)
+             {
+-                if (realpath(timezone, rp) == nullptr)
++                unique_ptr<char, decltype(free) *> rp(realpath(timezone, nullptr), free);
++                if (rp.get() == nullptr)
+                     throw system_error(errno, system_category(), "realpath() failed");
++                return locate_zone(extract_tz_name(rp.get()));
+             }
+             else
+             {
+-                if (readlink(timezone, rp, sizeof(rp)-1) <= 0)
++                // +1 because st_size doesn't include the '\0' terminator
++                const auto rp_size = sb.st_size + 1;
++                unique_ptr<char[]> rp(new char[rp_size]);
++                const auto rp_length = readlink(timezone, rp.get(), rp_size);
++                if (rp_length <= 0)
+                     throw system_error(errno, system_category(), "readlink() failed");
++                rp.get()[rp_length] = '\0'; // readlink doesn't null-terminate
++                return locate_zone(extract_tz_name(rp.get()));
+             }
+-            return locate_zone(extract_tz_name(rp));
+         }
+     }
+     // On embedded systems e.g. buildroot with uclibc the timezone is linked
+@@ -3981,9 +3988,10 @@ tzdb::current_zone() const
+         if (lstat(timezone, &sb) == 0 && S_ISLNK(sb.st_mode) && sb.st_size > 0) {
+             using namespace std;
+             string result;
+-            char rp[PATH_MAX+1] = {};
+-            if (readlink(timezone, rp, sizeof(rp)-1) > 0)
+-                result = string(rp);
++            unique_ptr<char[]> rp(new char[sb.st_size]);
++            const auto rp_length = readlink(timezone, rp.get(), sb.st_size);
++            if (rp_length > 0)
++                result = string(rp.get(), rp_length); // readlink doesn't null-terminate
+             else
+                 throw system_error(errno, system_category(), "readlink() failed");
+ 

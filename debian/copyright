@@ -1,22 +1,107 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: template-repository
-Source: https://github.com/deepin-community/template-repository
+Upstream-Name: date
+Upstream-Contact: Howard Hinnant <howard.hinnant@gmail.com>
+Source: https://github.com/HowardHinnant/date.git
+Files-Excluded: test/tz_test/tzdata*.zip
+Comment: Unused bundled tzdata, not part of howardhinnant-date
+Files-Excluded-docs: chrono_io.html d0355r*.html
 
 Files: *
-Copyright: 2023 Tsic404 <liuheng@deepin.org>
-License: GPL-2+
- This package is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+
+Files: ci/install_cmake.sh
+       cmake/dateConfig.cmake
+License: Expat
+Copyright: 2019 Mike Ellery <mellery451@gmail.com>
+
+Files: include/date/date.h
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+           2016 Adrian Colomitchi <acolomitchi@gmail.com>
+           2017 Florian Dang <florian.dang@qhedgetech.com>
+           2017 Paul Thompson <paul.r.thompson@gmail.com>
+           2018 Tomasz Kamiński <tomaszkam@gmail.com>
+           2019 Jiangang Zhuang
+
+Files: include/date/ios.h
+License: Expat
+Copyright: 2016 Alexander Kormanovsky <schmidt9@rambler.ru>
+
+Files: include/date/solar_hijri.h
+License: Expat
+Copyright: 2016 Howard Hinnant <howard.hinnant@gmail.com>
+           2019 Asad. Gharighi <a.gharighi@gmail.com>
+
+Files: include/date/tz.h
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+           2017 Jiangang Zhuang
+           2017 Aaron Bishop
+           2017 Tomasz Kamiński <tomaszkam@gmail.com>
+
+Files: src/ios.mm
+License: Expat
+Copyright: 2016 Alexander Kormanovsky <schmidt9@rambler.ru>
+
+Files: src/tz.cpp
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+           2015 Ville Voutilainen <ville.voutilainen@gmail.com>
+           2016 Alexander Kormanovsky <schmidt9@rambler.ru>
+           2016 Jiangang Zhuang
+           2017 Nicolas Veloz Savino <nveloz@mios.com>
+           2017 Florian Dang <florian.dang@qhedgetech.com>
+           2017 Aaron Bishop <aaron@cfssolutions.com>
+
+Files: test/clock_cast_test/*
+       test/date_test/durations_output.pass.cpp
+       test/tz_test/zoned_time_deduction.pass.cpp
+License: Expat
+Copyright: 2017-2019 Tomasz Kamiński <tomaszkam@gmail.com>
+
+Files: test/clock_cast_test/constexpr.pass.cpp
+License: Expat
+Copyright: 2019 nanoric <nanoric@qq.com>
+
+Files: test/solar_hijri_test/*
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+           2020 Asad. Gharighi <a.gharighi@gmail.com>
+
+Files: .travis.yml
+License: Expat
+Copyright: 2019 Michael Tsukerman <miketsukerman@gmail.com>
+
+Files: CMakeLists.txt
+       compile_fail.sh
+       test_fail.sh
+License: Expat
+Copyright: 2017 Darrell Wright <dwright-git@dawdevel.ca>
+
+Files: docs/*
+License: Expat
+Copyright: 2015 Howard Hinnant <howard.hinnant@gmail.com>
+
+Files: debian/*
+License: Expat
+Copyright: 2021-2022 Andrea Pappacoda <andrea@pappacoda.it>
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
  .
- This package is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
  .
- You should have received a copy of the GNU General Public License
- along with this program. If not, see <https://www.gnu.org/licenses/>
- .
- On Debian systems, the complete text of the GNU General
- Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.

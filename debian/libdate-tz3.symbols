@@ -1,0 +1,19 @@
+libdate-tz.so.3 libdate-tz3 #MINVER#
+* Build-Depends-Package: libhowardhinnant-date-dev
+ (c++)"date::current_zone()@Base" 3.0.1
+ (c++)"date::get_tzdb()@Base" 3.0.1
+ (c++)"date::get_tzdb_list()@Base" 3.0.1
+ (c++)"date::locate_zone(std::basic_string_view<char, std::char_traits<char> >)@Base" 3.0.1
+ (c++)"date::operator<<(std::basic_ostream<char, std::char_traits<char> >&, date::leap_second const&)@Base" 3.0.1
+ (c++)"date::operator<<(std::basic_ostream<char, std::char_traits<char> >&, date::time_zone const&)@Base" 3.0.1
+ (c++)"date::operator<<(std::basic_ostream<char, std::char_traits<char> >&, date::tzdb const&)@Base" 3.0.1
+ (c++)"date::time_zone::init() const@Base" 3.0.1
+ (c++)"date::time_zone::init_impl()@Base" 3.0.1
+ (c++)"date::time_zone::load_sys_info(__gnu_cxx::__normal_iterator<date::detail::transition const*, std::vector<date::detail::transition, std::allocator<date::detail::transition> > >) const@Base" 3.0.1
+ (c++)"date::time_zone::time_zone(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, date::detail::undocumented)@Base" 3.0.1
+ (c++|arch-bits=32)"date::leap_second::leap_second(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long long, std::ratio<1ll, 1ll> > > const&, date::detail::undocumented)@Base" 3.0.1
+ (c++|arch-bits=32)"date::time_zone::get_info_impl(std::chrono::time_point<date::local_t, std::chrono::duration<long long, std::ratio<1ll, 1ll> > >) const@Base" 3.0.1
+ (c++|arch-bits=32)"date::time_zone::get_info_impl(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long long, std::ratio<1ll, 1ll> > >) const@Base" 3.0.1
+ (c++|arch-bits=64)"date::leap_second::leap_second(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long, std::ratio<1l, 1l> > > const&, date::detail::undocumented)@Base" 3.0.1
+ (c++|arch-bits=64)"date::time_zone::get_info_impl(std::chrono::time_point<date::local_t, std::chrono::duration<long, std::ratio<1l, 1l> > >) const@Base" 3.0.1
+ (c++|arch-bits=64)"date::time_zone::get_info_impl(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long, std::ratio<1l, 1l> > >) const@Base" 3.0.1

@@ -1,5 +1,107 @@
-template-repository (1.0-1) unstable; urgency=medium
+howardhinnant-date (3.0.1+ds-5) unstable; urgency=medium
 
-  * Initial release
+  * d/rules: enable Large File Support (LFS) (Closes: #1028304)
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 11 Jan 2023 12:02:29 +0100
+
+howardhinnant-date (3.0.1+ds-4) unstable; urgency=medium
+
+  * d/control: depend on tzdata (Closes: #1027913)
+  * d/patches: support dark color scheme in documentation
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sat, 07 Jan 2023 23:15:41 +0100
+
+howardhinnant-date (3.0.1+ds-3) unstable; urgency=medium
+
+  * d/control: explicitly build-depend on tzdata
+  * d/patches: always mark HAS_STRING_VIEW as part of the interface.
+    If the library gets compiled with HAS_STRING_VIEW=1, consumers always
+    need to link to the functions using std::string_view, as they are the
+    only ones compiled into the shared library.
+    If the library gets compiled with e.g. C++17 and the user uses an older
+    standard version they'll still get an error, but an helpful compile-time
+    one suggesting to enable C++17 mode, instead of a cryptic linking error.
+  * d/tests: fix cmake autopkgtest on bullseye
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 21 Dec 2022 17:44:00 +0100
+
+howardhinnant-date (3.0.1+ds-2) unstable; urgency=medium
+
+  * d/patches: refresh PATH_MAX patch
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 19 Oct 2022 10:05:44 +0200
+
+howardhinnant-date (3.0.1+ds-1) unstable; urgency=medium
+
+  * New upstream version 3.0.1+ds
+  * d/copyright: exclude bundled tzdata
+  * d/.docs: install full documentation
+  * d/gbp.conf: disable pristine-tar.
+    It doesn't seem to work with MUT.
+  * d/rules: make use of GCC Visibility.
+    The library is now compiled with -fvisibility=hidden and
+    -fvisibility-inlines-hidden, and symbols are selectively exposed in the
+    shared object by making use of upstream's already existing support for
+    Windows' dllexport.
+  * d/watch: download documentation component
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sun, 25 Sep 2022 01:47:00 +0200
+
+howardhinnant-date (3.0.1-7) unstable; urgency=medium
+
+  * d/tests/cmake: suppress psABI warning on ARM
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sun, 28 Aug 2022 21:28:50 +0200
+
+howardhinnant-date (3.0.1-6) unstable; urgency=medium
+
+  * Source-only upload.
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 24 Aug 2022 17:11:01 +0200
+
+howardhinnant-date (3.0.1-5) unstable; urgency=medium
+
+  * d/patches: drop cmake-rename patch.
+    It creates more problems than it solves.
+    The patch only modified the name of libraries, targets and namespaces
+    in CMake, but did not touch headers. This caused problems for CMake
+    users, that had to account for the "Debian name" of the library, while
+    not solving name clashes where needed the most, i.e. in header files.
+    The libhowardhinnant-date-dev package will keep its name, as libdate-dev
+    is too general for a package name, and adding the howardhinnant prefix
+    there doesn't create issues in users' code.
+    As the date-tz target is no longer renamed, the shared library changed
+    name from libhowardhinnant-date-tz to libdate-tz, and the binary package
+    containing it did as well. (Closes: #1011640)
+  * d/patches: stop using PATH_MAX.
+    This will properly fix the build on GNU Hurd, while also improving the
+    code on all the other platforms.
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sat, 06 Aug 2022 13:58:26 +0200
+
+howardhinnant-date (3.0.1-4) unstable; urgency=medium
+
+  * d/patches: always define PATH_MAX
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Thu, 13 Jan 2022 00:31:51 +0100
+
+howardhinnant-date (3.0.1-3) unstable; urgency=medium
+
+  * d/control: bump minimum required CMake version to 3.15
+  * d/patches: install all headers. Closes: #1001895
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 05 Jan 2022 00:09:37 +0100
+
+howardhinnant-date (3.0.1-2) unstable; urgency=medium
+
+  * d/control: add Vcs fields
+  * d/rules: add qa=+all option
+  * d/watch: use GitHub's API
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Thu, 09 Dec 2021 15:51:10 +0100
+
+howardhinnant-date (3.0.1-1) unstable; urgency=low
+
+  * Initial release. Closes: #895222
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 01 Sep 2021 16:33:49 +0200

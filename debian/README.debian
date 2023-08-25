@@ -1,0 +1,2 @@
+Todo: define PATH_MAX to something reasonable or drop its use entirely to
+fix Hurd build failures

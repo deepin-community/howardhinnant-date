@@ -1,4 +1,31 @@
 #!/usr/bin/make -f
 
+# future=+lfs required because of bug #1028304
+# optimize=-lto because I use CMake's LTO
+export DEB_BUILD_MAINT_OPTIONS = future=+lfs hardening=+all optimize=-lto qa=+all
+# To export symbols, see include/date/tz.h:130
+export DEB_CPPFLAGS_MAINT_APPEND = -DDATE_BUILD_DLL
+export LC_ALL = C.UTF-8
+
+# CXX is used by test/testit
+export DPKG_EXPORT_BUILDTOOLS = 1
+include /usr/share/dpkg/buildtools.mk
+
 %:
 	dh $@
+
+# COMPILE_WITH_C_LOCALE needed because of
+# https://github.com/HowardHinnant/date/issues/388
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+		-DCMAKE_POLICY_DEFAULT_CMP0069=NEW \
+		-DCMAKE_CXX_VISIBILITY_PRESET=hidden \
+		-DCMAKE_VISIBILITY_INLINES_HIDDEN=ON \
+		-DUSE_SYSTEM_TZ_DB=ON \
+		-DBUILD_SHARED_LIBS=ON \
+		-DBUILD_TZ_LIB=ON \
+		-DCOMPILE_WITH_C_LOCALE=ON
+
+override_dh_auto_test:
+	cd test && OPTIONS="$(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -DONLY_C_LOCALE=1 -DUSE_OS_TZDB=1" VERBOSE=true ./testit
