@@ -1,0 +1,28 @@
+Description: cmake: update project version
+ howardhinnant-date is at version 3.0.1, but upstream CMakeLists.txt
+ says 3.0.0. This patch fixes it.
+Author: Andrea Pappacoda <andrea@pappacoda.it>
+Origin: upstream, https://github.com/HowardHinnant/date/commit/2e19c006e2218447ee31f864191859517603f59f
+Forwarded: https://github.com/HowardHinnant/date/pull/699
+Last-Update: 2021-09-17
+
+--- howardhinnant-date-3.0.1.orig/CMakeLists.txt
++++ howardhinnant-date-3.0.1/CMakeLists.txt
+@@ -7,7 +7,7 @@
+      include( FetchContent )
+      FetchContent_Declare( date_src
+        GIT_REPOSITORY https://github.com/HowardHinnant/date.git
+-       GIT_TAG        v3.0.0  # adjust tag/branch/commit as needed
++       GIT_TAG        v3.0.1  # adjust tag/branch/commit as needed
+      )
+      FetchContent_MakeAvailable(date_src)
+      ...
+@@ -17,7 +17,7 @@
+ 
+ cmake_minimum_required( VERSION 3.7 )
+ 
+-project( date VERSION 3.0.0 )
++project( date VERSION 3.0.1 )
+ set(ABI_VERSION 3) # used as SOVERSION, increment when ABI changes
+ 
+ include( GNUInstallDirs )

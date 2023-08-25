@@ -1,0 +1,3 @@
+usr/include/date
+usr/lib/*/cmake/date
+usr/lib/*/libdate-tz.so

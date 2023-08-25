@@ -1,0 +1,10 @@
+cmake-update-project-version.patch
+Zero_initialize_local_info_in_get_info.patch
+When_comparing_sys_info_in_test.patch
+Change_default_test_mode_to_C++17.patch
+test_use_pthread_when_CXX_is_g++.patch
+cmake-install-all-headers.patch
+tests-disable-lcurl.patch
+Stop-using-PATH_MAX.patch
+cmake-has-string-view-interface.patch
+docs-dark-scheme.patch

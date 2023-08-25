@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -eu
+
+cd "$AUTOPKGTEST_TMP"
+
+sed 's|#include "tz.h"|#include <date/tz.h>|' "$OLDPWD/test/tz_test/zoned_time.pass.cpp" > main.cpp
+
+cat <<'EOF' > CMakeLists.txt
+cmake_minimum_required(VERSION 3.15)
+
+project(date-autopkgtest-cmake)
+
+find_package("date" REQUIRED)
+
+add_executable(main "main.cpp")
+
+target_compile_features(main PRIVATE cxx_std_17)
+target_link_libraries(main date::date-tz)
+EOF
+
+# Suppress useless warning from GCC saying that some ABI changed
+# in GCC 7.1 when compiling on arm.
+if realpath $(command -v c++) | grep -q g++; then
+	export CXXFLAGS='-Wno-psabi'
+fi
+
+cmake -B build
+cmake --build build --verbose
+./build/main

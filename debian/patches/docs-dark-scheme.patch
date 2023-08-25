@@ -1,0 +1,159 @@
+Description: Support dark color-scheme
+ This patch updates the html documentation to add the color-scheme meta
+ element, signalling light and dark color scheme support, and updating
+ the inline CSS styles to override some colors when dark mode is active,
+ to make sure that the document is always readable.
+Author: Andrea Pappacoda <andrea@pappacoda.it>
+Forwarded: https://github.com/HowardHinnant/date/pull/769
+Last-Update: 2023-01-07
+
+--- howardhinnant-date-3.0.1+ds.orig/docs/date.html
++++ howardhinnant-date-3.0.1+ds/docs/date.html
+@@ -4,20 +4,17 @@
+ <head>
+ 	<title>date</title>
+ 
++	<meta name="color-scheme" content="light dark" />
+ 	<style>
+-	p {text-align:justify}
+-	li {text-align:justify}
+-	blockquote.note
+-	{
+-		background-color:#E0E0E0;
+-		padding-left: 15px;
+-		padding-right: 15px;
+-		padding-top: 1px;
+-		padding-bottom: 1px;
+-	}
++	li, p {text-align:justify}
+ 	ins {color:#00A000}
+ 	del {color:#A00000}
+ 	code {white-space:pre;}
++	@media (prefers-color-scheme: dark)
++	{
++		ins {color:#88FF88}
++		del {color:#FF5555}
++	}
+ 	</style>
+ </head>
+ <body>
+--- howardhinnant-date-3.0.1+ds.orig/docs/islamic.html
++++ howardhinnant-date-3.0.1+ds/docs/islamic.html
+@@ -4,20 +4,17 @@
+ <head>
+ 	<title>islamic</title>
+ 
++	<meta name="color-scheme" content="light dark" />
+ 	<style>
+-	p {text-align:justify}
+-	li {text-align:justify}
+-	blockquote.note
+-	{
+-		background-color:#E0E0E0;
+-		padding-left: 15px;
+-		padding-right: 15px;
+-		padding-top: 1px;
+-		padding-bottom: 1px;
+-	}
++	li, p {text-align:justify}
+ 	ins {color:#00A000}
+ 	del {color:#A00000}
+ 	code {white-space:pre;}
++	@media (prefers-color-scheme: dark)
++	{
++		ins {color:#88FF88}
++		del {color:#FF5555}
++	}
+ 	</style>
+ </head>
+ <body>
+--- howardhinnant-date-3.0.1+ds.orig/docs/iso_week.html
++++ howardhinnant-date-3.0.1+ds/docs/iso_week.html
+@@ -4,20 +4,17 @@
+ <head>
+ 	<title>iso_week</title>
+ 
++	<meta name="color-scheme" content="light dark" />
+ 	<style>
+-	p {text-align:justify}
+-	li {text-align:justify}
+-	blockquote.note
+-	{
+-		background-color:#E0E0E0;
+-		padding-left: 15px;
+-		padding-right: 15px;
+-		padding-top: 1px;
+-		padding-bottom: 1px;
+-	}
++	li, p {text-align:justify}
+ 	ins {color:#00A000}
+ 	del {color:#A00000}
+ 	code {white-space:pre;}
++	@media (prefers-color-scheme: dark)
++	{
++		ins {color:#88FF88}
++		del {color:#FF5555}
++	}
+ 	</style>
+ </head>
+ <body>
+--- howardhinnant-date-3.0.1+ds.orig/docs/julian.html
++++ howardhinnant-date-3.0.1+ds/docs/julian.html
+@@ -4,20 +4,17 @@
+ <head>
+ 	<title>julian</title>
+ 
++	<meta name="color-scheme" content="light dark" />
+ 	<style>
+-	p {text-align:justify}
+-	li {text-align:justify}
+-	blockquote.note
+-	{
+-		background-color:#E0E0E0;
+-		padding-left: 15px;
+-		padding-right: 15px;
+-		padding-top: 1px;
+-		padding-bottom: 1px;
+-	}
++	li, p {text-align:justify}
+ 	ins {color:#00A000}
+ 	del {color:#A00000}
+ 	code {white-space:pre;}
++	@media (prefers-color-scheme: dark)
++	{
++		ins {color:#88FF88}
++		del {color:#FF5555}
++	}
+ 	</style>
+ </head>
+ <body>
+--- howardhinnant-date-3.0.1+ds.orig/docs/tz.html
++++ howardhinnant-date-3.0.1+ds/docs/tz.html
+@@ -4,20 +4,17 @@
+ <head>
+ 	<title>Time Zone Database Parser</title>
+ 
++	<meta name="color-scheme" content="light dark" />
+ 	<style>
+-	p {text-align:justify}
+-	li {text-align:justify}
+-	blockquote.note
+-	{
+-		background-color:#E0E0E0;
+-		padding-left: 15px;
+-		padding-right: 15px;
+-		padding-top: 1px;
+-		padding-bottom: 1px;
+-	}
++	li, p {text-align:justify}
+ 	ins {color:#00A000}
+ 	del {color:#A00000}
+ 	code {white-space:pre;}
++	@media (prefers-color-scheme: dark)
++	{
++		ins {color:#88FF88}
++		del {color:#FF5555}
++	}
+ 	</style>
+ </head>
+ <body>

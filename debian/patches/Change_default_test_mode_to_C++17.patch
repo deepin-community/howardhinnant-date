@@ -1,0 +1,26 @@
+Description: Change default test mode to C++17
+Origin: upstream, https://github.com/HowardHinnant/date/commit/ebb5719cd710c694bf62d45a03b3d13f532a35d1
+Last-Update: 2021-11-02
+
+From ebb5719cd710c694bf62d45a03b3d13f532a35d1 Mon Sep 17 00:00:00 2001
+From: Howard Hinnant <howard.hinnant@gmail.com>
+Date: Wed, 19 May 2021 14:43:19 -0400
+Subject: [PATCH] Change default test mode to C++17
+
+---
+ test/testit | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/testit b/test/testit
+index 21ec3a23..f34ab356 100755
+--- a/test/testit
++++ b/test/testit
+@@ -46,7 +46,7 @@ fi
+ 
+ if [ -z "$CXX_LANG" ]
+ then
+-    CXX_LANG=c++14
++    CXX_LANG=c++17
+ fi
+ OPTIONS="-std=${CXX_LANG} $OPTIONS -I$ROOT -Wall $ROOT/src/tz.cpp -lcurl"
+ 

@@ -1,0 +1,19 @@
+Description: build: always mark HAS_STRING_VIEW as part of the interface
+ If the library gets compiled with HAS_STRING_VIEW=1, consumers always need to
+ link to the functions using std::string_view, as they are the only ones
+ compiled into the shared library.
+Author: Andrea Pappacoda <andrea@pappacoda.it>
+Forwarded: https://github.com/HowardHinnant/date/pull/766
+Last-Update: 2022-12-21
+
+--- howardhinnant-date-3.0.1+ds.orig/CMakeLists.txt
++++ howardhinnant-date-3.0.1+ds/CMakeLists.txt
+@@ -101,6 +101,8 @@ else()
+ endif()
+ if ( DISABLE_STRING_VIEW )
+   target_compile_definitions( date INTERFACE HAS_STRING_VIEW=0 -DHAS_DEDUCTION_GUIDES=0 )
++else()
++  target_compile_definitions( date INTERFACE HAS_STRING_VIEW=1 )
+ endif()
+ 
+ #[===================================================================[

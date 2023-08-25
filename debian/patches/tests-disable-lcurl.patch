@@ -1,0 +1,18 @@
+Description: disable linking against curl in tests
+ It is not needed, as in Debian we use the system timezone database.
+ This also allows removing the build-dependency on libcurl-dev.
+Author: Andrea Pappacoda <andrea@pappacoda.it>
+Forwarded: not-needed
+Last-Update: 2022-08-04
+
+--- howardhinnant-date-3.0.1.orig/test/testit
++++ howardhinnant-date-3.0.1/test/testit
+@@ -54,7 +54,7 @@ then
+ 	OPTIONS="$OPTIONS -pthread"
+ fi
+ 
+-OPTIONS="-std=${CXX_LANG} $OPTIONS -I$ROOT -Wall $ROOT/src/tz.cpp -lcurl"
++OPTIONS="-std=${CXX_LANG} $OPTIONS -I$ROOT -Wall $ROOT/src/tz.cpp"
+ 
+ echo $ROOT
+ HEADER_INCLUDE="-I$ROOT/include -I$ROOT/include/date"

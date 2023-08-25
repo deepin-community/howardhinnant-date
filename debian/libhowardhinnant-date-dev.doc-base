@@ -1,0 +1,12 @@
+Document: libhowardhinnant-date-dev
+Title: Howard Hinnant date documentation
+Author: Howard E. Hinnant <howard.hinnant@gmail.com>
+Abstract: howardhinnant-date is a date and time library based on the C++ <chrono>
+ header, extending it to calendars and timezones, while focusing on a
+ seamless integration with the existing <chrono> library, type safety,
+ performance and ease of use.
+Section: Programming/C++
+
+Format: HTML
+Index: /usr/share/doc/libhowardhinnant-date-dev/date.html
+Files: /usr/share/doc/libhowardhinnant-date-dev/*.html
