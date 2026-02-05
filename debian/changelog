@@ -1,3 +1,9 @@
+howardhinnant-date (3.0.1+ds-5deepin1) unstable; urgency=medium
+
+  * gcc-12 rebuild.
+
+ -- lichenggang <lichenggang@deepin.org>  Thu, 05 Feb 2026 19:38:12 +0800
+
 howardhinnant-date (3.0.1+ds-5) unstable; urgency=medium
 
   * d/rules: enable Large File Support (LFS) (Closes: #1028304)
